@@ -8,18 +8,11 @@ from sklearn.metrics import silhouette_score, davies_bouldin_score
 
 
 # -------------------------
-# 1) Load or generate data
+# 1) Load data
 # -------------------------
-# Option A: Load from CSV (uncomment and edit path if you have a dataset)
-# df = pd.read_csv("data/clustering_dataset.csv")
-# X = df[["attr1", "attr2", "attr3"]].values  # rename columns to match your file
 
-# Option B: Generate synthetic numeric data (matches your README)
-rng = np.random.default_rng(42)
-X = np.vstack([
-    rng.normal(loc=[0, 0, 0], scale=[1.0, 0.8, 0.6], size=(200, 3)),
-    rng.normal(loc=[4, 4, 4], scale=[0.9, 0.7, 0.9], size=(200, 3)),
-    rng.normal(loc=[-4, 4, -2], scale=[0.7, 1.0, 0.8], size=(200, 3)),
+df = pd.read_csv("data/clustering_dataset.csv")
+X = df[["attr1", "attr2", "attr3"]].values  
 ])
 
 print("Data shape:", X.shape)
@@ -115,8 +108,6 @@ plt.show()
 # -------------------------
 # 6) Fit best models and visualise clusters (2D projection)
 # -------------------------
-# For simple visuals, plot first two features of scaled data (attr1 vs attr2)
-# This is acceptable for a portfolio; you can mention it's a 2D view.
 
 # Best K-Means
 k_best = int(best_kmeans["k"])
@@ -143,11 +134,8 @@ plt.title(f"Agglomerative (Ward) Clusters (k={k_best_ag})")
 plt.show()
 
 # -------------------------
-# 7) Optional: DBSCAN quick check (documented but not emphasised)
+# 7)  DBSCAN check 
 # -------------------------
-# DBSCAN often struggles if the dataset is not density-separated.
-# This block is optional; you can keep it to justify why you excluded DBSCAN.
-
 dbscan = DBSCAN(eps=0.5, min_samples=5)
 db_labels = dbscan.fit_predict(X_scaled)
 
@@ -155,3 +143,4 @@ n_clusters = len(set(db_labels)) - (1 if -1 in db_labels else 0)
 n_noise = np.sum(db_labels == -1)
 
 print(f"\nDBSCAN clusters found: {n_clusters}, noise points: {n_noise}")
+
