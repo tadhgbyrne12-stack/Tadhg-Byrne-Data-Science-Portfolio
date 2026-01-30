@@ -11,7 +11,6 @@ import statsmodels.api as sm
 # -------------------------
 # 1) Load data
 # -------------------------
-# NOTE: Dataset path assumed relative to project directory
 df = pd.read_csv("data/assessment_regression_dataset.csv")
 
 # Target and predictors
@@ -63,3 +62,4 @@ plt.ylabel("Predicted Weight (kg)")
 plt.title("Predicted vs Actual Body Weight from Skeletal Measurements")
 plt.tight_layout()
 plt.show()
+
